@@ -1,9 +1,9 @@
 package funkin.util.logging;
 
+import flixel.FlxG.FlxRenderMethod;
+import flixel.util.FlxSignal.FlxTypedSignal;
 import openfl.Lib;
 import openfl.events.UncaughtErrorEvent;
-import flixel.util.FlxSignal.FlxTypedSignal;
-import flixel.FlxG.FlxRenderMethod;
 
 /**
  * A custom crash handler that writes to a log file and displays a message box.
@@ -11,7 +11,7 @@ import flixel.FlxG.FlxRenderMethod;
 @:nullSafety
 class CrashHandler
 {
-  public static final LOG_FOLDER = 'logs';
+  public static final LOG_FOLDER:String = 'logs';
 
   /**
    * Called before exiting the game when a standard error occurs, like a thrown exception.
@@ -119,11 +119,13 @@ class CrashHandler
   }
   #end
 
+  final spacing:String = '=====================';
+
   static function buildCrashReport(message:String):String
   {
-    var fullContents:String = '=====================\n';
-    fullContents += ' Funkin Crash Report\n';
-    fullContents += '=====================\n';
+    var fullContents:String = '${spacing}\n';
+    fullContents += ' Sinco Engine Crash Report\n';
+    fullContents += '${spacing}\n';
 
     fullContents += '\n';
 
@@ -131,7 +133,7 @@ class CrashHandler
 
     fullContents += '\n\n';
 
-    fullContents += '=====================\n';
+    fullContents += '${spacing}\n';
 
     fullContents += '\n';
 
@@ -149,7 +151,7 @@ class CrashHandler
 
     fullContents += '\n';
 
-    fullContents += '=====================\n';
+    fullContents += '${spacing}\n';
 
     fullContents += '\n';
 
@@ -162,7 +164,7 @@ class CrashHandler
 
     fullContents += '\n';
 
-    fullContents += '=====================\n';
+    fullContents += '${spacing}\n';
 
     fullContents += '\n';
 
@@ -182,7 +184,7 @@ class CrashHandler
 
     fullContents += '\n';
 
-    fullContents += '=====================\n';
+    fullContents += '${spacing}\n';
 
     fullContents += '\n';
 
@@ -207,7 +209,7 @@ class CrashHandler
 
     fullContents += '\n';
 
-    fullContents += '=====================\n';
+    fullContents += '${spacing}\n';
 
     fullContents += '\n';
 
