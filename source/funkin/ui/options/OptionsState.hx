@@ -5,6 +5,7 @@ import funkin.graphics.shaders.HSVShader;
 import funkin.input.Controls;
 import funkin.ui.MusicBeatState;
 import funkin.ui.Page.PageName;
+import funkin.ui.TextMenuList.TextMenuItem;
 import funkin.ui.debug.latency.LatencyState;
 import funkin.ui.mainmenu.MainMenuState;
 import funkin.ui.transition.LoadingState;
