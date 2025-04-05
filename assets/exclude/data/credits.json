@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "header": "Friday Night Funkin' Sinco Engine",
+      "body": [
+        { "line": "A friday night funkin' engine created by" },
+        { "line": "Sinco" },
+        { "line": "DjottaFlow" },
+        { "line": "PaulLeps" }
+      ]
+    },
+    {
       "header": "Friday Night Funkin'",
       "body": [
         { "line": "A video game created by" },
