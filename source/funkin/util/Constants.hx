@@ -587,4 +587,13 @@ class Constants
    * 0.04 = 4% of distance per frame.
    */
   public static final DEFAULT_CAMERA_FOLLOW_RATE:Float = 0.04;
+  /**
+   * The text that displays on the pause menu for how many deaths you have
+   */
+  public static final DEATH_COUNTER_SUFFIX:String = 'Blue Balls';
+
+  /**
+   * The text that displays on the pause menu for how many deaths you have but censored
+   */
+  public static final DEATH_COUNTER_SUFFIX_CENSORED:String = 'Deaths';
 }

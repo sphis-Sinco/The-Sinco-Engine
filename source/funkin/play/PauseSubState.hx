@@ -593,12 +593,13 @@ class PauseSubState extends MusicBeatSubState
    */
   function updateMetadataText():Void
   {
+    final deathMsg:String = (Preferences.naughtyness) ? Constants.DEATH_COUNTER_SUFFIX_CENSORED : Constants.DEATH_COUNTER_SUFFIX;
     metadataPractice.visible = PlayState.instance?.isPracticeMode ?? false;
 
     switch (this.currentMode)
     {
       case Standard | Difficulty:
-        metadataDeaths.text = '${PlayState.instance?.deathCounter} Blue Balls';
+        metadataDeaths.text = '${PlayState.instance?.deathCounter} ${deathMsg}';
       case Charting:
         metadataDeaths.text = 'Chart Editor Preview';
       case Conversation:
