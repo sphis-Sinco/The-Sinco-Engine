@@ -164,14 +164,7 @@ class MainMenuState extends MusicBeatState
 
     // This has to come AFTER!
     this.leftWatermarkText.text = 'Sinco Engine ${Constants.VERSION}';
-
-    #if FEATURE_NEWGROUNDS
-    if (NG.core?.loggedIn)
-    {
-      this.leftWatermarkText.text += '\nNewgrounds: Logged in as ${NG.core?.user?.name}';
-      this.leftWatermarkText.y -= 18;
-    }
-    #end
+    trace(this.leftWaterMarkText.text);
   }
 
   function playMenuMusic():Void
