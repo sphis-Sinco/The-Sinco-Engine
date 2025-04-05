@@ -2158,7 +2158,7 @@ class PlayState extends MusicBeatSubState
     final commaSeparated:Bool = true;
 
     final scoreValue:String = 'Score: ${FlxStringUtil.formatMoney(songScore, false, commaSeparated)}';
-    final missValue:String = '|| Misses: ${FlxStringUtil.formatMoney(songMisses, false, commaSeparated)}';
+    final missValue:String = ' || Misses: ${FlxStringUtil.formatMoney(songMisses, false, commaSeparated)}';
 
     if (isBotPlayMode)
     {
