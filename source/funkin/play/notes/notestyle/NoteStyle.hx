@@ -884,7 +884,8 @@ class NoteStyle implements IRegistryEntry<NoteStyleData>
 
     if (atlas == null)
     {
-      throw 'Could not load spritesheet for note style: $id';
+      trace('Could not load spritesheet for note style: $id');
+      return;
     }
     target.frames = atlas;
     target.antialiasing = !(_data.assets.noteSplash?.isPixel ?? false);
