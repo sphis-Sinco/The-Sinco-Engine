@@ -62,4 +62,4 @@
 
 - [ ] - Add Events
 
-- [ ] - Add 3rd varable (I have no idea if we're using the psych source still)
+- [ ] - Add lua compatability (because it's the only damm way we can get people not to complain)
