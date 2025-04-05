@@ -16,7 +16,6 @@ import flixel.util.FlxColor;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
 import funkin.Highscore.Tallies;
-import funkin.api.newgrounds.Events;
 import funkin.audio.FunkinSound;
 import funkin.audio.VoicesGroup;
 import funkin.data.dialogue.conversation.ConversationRegistry;
@@ -59,10 +58,6 @@ import funkin.util.SerializerUtil;
 import haxe.Int64;
 #if FEATURE_DISCORD_RPC
 import funkin.api.discord.DiscordClient;
-#end
-#if FEATURE_NEWGROUNDS
-import funkin.api.newgrounds.Leaderboards;
-import funkin.api.newgrounds.Medals;
 #end
 
 /**
@@ -1060,9 +1055,6 @@ class PlayState extends MusicBeatSubState
         if (FlxG.sound.music != null) FlxG.sound.music.pause();
 
         deathCounter += 1;
-        #if FEATURE_NEWGROUNDS
-        Events.logFailSong(currentSong.id, currentVariation);
-        #end
 
         dispatchEvent(new ScriptEvent(GAME_OVER));
 
@@ -2124,10 +2116,6 @@ class PlayState extends MusicBeatSubState
     }
 
     dispatchEvent(new ScriptEvent(SONG_START));
-
-    #if FEATURE_NEWGROUNDS
-    Events.logStartSong(currentSong.id, currentVariation);
-    #end
   }
 
   /**
@@ -2975,10 +2963,6 @@ class PlayState extends MusicBeatSubState
 
       if (!isPracticeMode && !isBotPlayMode)
       {
-        #if FEATURE_NEWGROUNDS
-        Events.logCompleteSong(currentSong.id, currentVariation);
-        #end
-
         isNewHighscore = Save.instance.isSongHighScore(currentSong.id, suffixedDifficulty, data);
 
         // If no high score is present, save both score and rank.
@@ -2989,33 +2973,6 @@ class PlayState extends MusicBeatSubState
         if (isNewHighscore) {}
       }
     }
-
-    #if FEATURE_NEWGROUNDS
-    // Only award medals if we are LEGIT.
-    if (!isPracticeMode && !isBotPlayMode && !isChartingMode && currentSong.validScore)
-    {
-      // Award a medal for beating at least one song on any difficulty on a Friday.
-      if (Date.now().getDay() == 5) Medals.award(FridayNight);
-
-      // Determine the score rank for this song we just finished.
-      var scoreRank:ScoringRank = Scoring.calculateRank(
-        {
-          score: songScore,
-          tallies: getTallies()
-        });
-
-      // Award various medals based on variation, difficulty, and scoring rank.
-      if (scoreRank == ScoringRank.SHIT) Medals.award(LossRating);
-      if (scoreRank >= ScoringRank.PERFECT && currentDifficulty == 'hard') Medals.award(PerfectRatingHard);
-      if (scoreRank == ScoringRank.PERFECT_GOLD && currentDifficulty == 'hard') Medals.award(GoldPerfectRatingHard);
-      if (Constants.DEFAULT_DIFFICULTY_LIST_ERECT.contains(currentDifficulty)) Medals.award(ErectDifficulty);
-      if (scoreRank == ScoringRank.PERFECT_GOLD && currentDifficulty == 'nightmare') Medals.award(GoldPerfectRatingNightmare);
-      if (currentVariation == 'pico' && !PlayStatePlaylist.isStoryMode) Medals.award(FreeplayPicoMix);
-      if (currentVariation == 'pico' && currentSong.id == 'stress') Medals.award(FreeplayStressPico);
-
-      Events.logEarnRank(scoreRank.toString());
-    }
-    #end
 
     if (PlayStatePlaylist.isStoryMode)
     {
@@ -3052,16 +3009,6 @@ class PlayState extends MusicBeatSubState
           if (currentSong.validScore
             && Save.instance.isLevelHighScore(PlayStatePlaylist.campaignId, PlayStatePlaylist.campaignDifficulty, data))
           {
-            #if FEATURE_NEWGROUNDS
-            // Award a medal for beating a Story level.
-            Medals.awardStoryLevel(PlayStatePlaylist.campaignId);
-
-            // Submit the score for the Story level to Newgrounds.
-            Leaderboards.submitLevelScore(PlayStatePlaylist.campaignId, PlayStatePlaylist.campaignDifficulty, PlayStatePlaylist.campaignScore);
-
-            Events.logCompleteLevel(PlayStatePlaylist.campaignId);
-            #end
-
             Save.instance.setLevelScore(PlayStatePlaylist.campaignId, PlayStatePlaylist.campaignDifficulty, data);
             isNewHighscore = true;
           }

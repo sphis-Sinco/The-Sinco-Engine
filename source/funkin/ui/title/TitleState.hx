@@ -25,9 +25,6 @@ import openfl.events.MouseEvent;
 import openfl.events.NetStatusEvent;
 import openfl.media.Video;
 import openfl.net.NetStream;
-#if FEATURE_NEWGROUNDS
-import funkin.api.newgrounds.Medals;
-#end
 import funkin.ui.freeplay.FreeplayState;
 import openfl.display.BlendMode;
 import funkin.save.Save;
@@ -283,12 +280,6 @@ class TitleState extends MusicBeatState
       FlxG.camera.flash(FlxColor.WHITE, 1);
       FunkinSound.playOnce(Paths.sound('confirmMenu'), 0.7);
       transitioning = true;
-
-      #if FEATURE_NEWGROUNDS
-      // Award the "Start Game" medal.
-      Medals.award(Medal.StartGame);
-      funkin.api.newgrounds.Events.logStartGame();
-      #end
 
       var targetState:NextState = () -> new MainMenuState();
 

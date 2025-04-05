@@ -24,9 +24,6 @@ import funkin.util.WindowUtil;
 #if FEATURE_DISCORD_RPC
 import funkin.api.discord.DiscordClient;
 #end
-#if FEATURE_NEWGROUNDS
-import io.newgrounds.NG;
-#end
 
 class MainMenuState extends MusicBeatState
 {
@@ -225,16 +222,7 @@ class MainMenuState extends MusicBeatState
 
   function selectMerch()
   {
-    NG.core?.calls.loader.loadReferral(false)
-      .addComponentParameter("referral_name", "merch_link")
-      .addResponseHandler(response -> {
-        if (response.success) WindowUtil.openURL(response.result.data.url)
-        else
-        {
-          WindowUtil.openURL(Constants.URL_MERCH_FALLBACK);
-        }
-      })
-      .send();
+    WindowUtil.openURL(Constants.URL_MERCH_FALLBACK);
   }
   #end
 

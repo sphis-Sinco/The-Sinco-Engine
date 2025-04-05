@@ -11,10 +11,6 @@ import funkin.ui.debug.charting.ChartEditorState.ChartEditorTheme;
 import funkin.ui.debug.stageeditor.StageEditorState.StageEditorTheme;
 import funkin.util.FileUtil;
 import thx.semver.Version;
-#if FEATURE_NEWGROUNDS
-import funkin.api.newgrounds.Leaderboards;
-import funkin.api.newgrounds.Medals;
-#end
 
 @:nullSafety
 class Save
@@ -728,10 +724,6 @@ class Save
     {
       // Directly set the highscore.
       setSongScore(songId, difficultyId, newScoreData);
-
-      #if FEATURE_NEWGROUNDS
-      Leaderboards.submitSongScore(songId, difficultyId, newScoreData.score);
-      #end
 
       return;
     }
