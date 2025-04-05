@@ -7,7 +7,7 @@
   "timeChanges": [{ "t": 0, "bpm": 180, "n": 4, "d": 4, "bt": [4, 4, 4, 4] }],
   "playData": {
     "ratings": { "easy": 1, "normal": 1, "hard": 2 },
-    "songVariations": ["erect", "pico"],
+    "songVariations": ["erect"],
     "difficulties": ["easy", "normal", "hard"],
     "characters": {
       "player": "bf",
