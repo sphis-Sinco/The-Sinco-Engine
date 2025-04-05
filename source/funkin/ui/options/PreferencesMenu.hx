@@ -239,10 +239,10 @@ class PreferencesMenu extends Page<OptionsState.OptionsMenuPageName>
    */
   function createPrefItemPercentage(prefName:String, prefDesc:String, onChange:Int->Void, defaultValue:Int, min:Int = 0, max:Int = 100):Void
   {
-    var newCallback:Void = function(value:Float) {
+    var newCallback = function(value:Float) {
       onChange(Std.int(value));
     };
-    var formatter:Void = function(value:Float) {
+    var formatter = function(value:Float) {
       return '${value}%';
     };
     var item:NumberPreferenceItem = new NumberPreferenceItem(0, (120 * (items.length + headers.length)) + 30, prefName, defaultValue, min, max, 10, 0,
