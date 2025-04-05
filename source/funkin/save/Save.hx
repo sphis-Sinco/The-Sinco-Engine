@@ -14,6 +14,7 @@ import thx.semver.Version;
 #if FEATURE_NEWGROUNDS
 import funkin.api.newgrounds.Leaderboards;
 import funkin.api.newgrounds.Medals;
+#end
 
 @:nullSafety
 class Save
