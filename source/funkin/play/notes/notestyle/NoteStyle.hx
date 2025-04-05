@@ -870,7 +870,17 @@ class NoteStyle implements IRegistryEntry<NoteStyleData>
 
   public function buildSplashSprite(target:NoteSplash):Void
   {
-    var atlas:Null<FlxAtlasFrames> = buildSplashFrames(false);
+    var atlas:Null<FlxAtlasFrames> = null;
+
+    try
+    {
+      atlas = buildSplashFrames(false);
+    }
+    catch (e)
+    {
+      trace(e);
+      atlas = null;
+    }
 
     if (atlas == null)
     {
