@@ -461,7 +461,7 @@ class PlayState extends MusicBeatSubState
   /**
    * The FlxText which displays the current score.
    */
-  var scoreText:FlxText;
+  public var scoreText:FlxText;
 
   /**
    * The bar which displays the player's health.
@@ -2155,7 +2155,7 @@ class PlayState extends MusicBeatSubState
      * This should allow modules to update the score text
      * @param newtext the new score text
      */
-  public static function dynamicScoreTextUpdate(newtext:String):Void
+  public function dynamicScoreTextUpdate(newtext:String):Void
   {
     scoreText.text = newtext;
   }
