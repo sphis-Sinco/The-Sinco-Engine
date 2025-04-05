@@ -1,7 +1,7 @@
 package funkin.ui;
 
-import funkin.ui.AtlasText.AtlasFont;
-import funkin.ui.MenuList.MenuTypedItem;
+import funkin.ui.AtlasText;
+import funkin.ui.MenuList;
 
 class TextMenuList extends MenuTypedList<TextMenuItem>
 {
