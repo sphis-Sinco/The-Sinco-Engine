@@ -1,25 +1,25 @@
 package funkin.ui.mainmenu;
 
-import flixel.addons.transition.FlxTransitionableState;
-import funkin.ui.debug.DebugMenuSubState;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.effects.FlxFlicker;
-import flixel.util.typeLimit.NextState;
 import flixel.input.touch.FlxTouch;
 import flixel.tweens.FlxEase;
-import funkin.graphics.FunkinCamera;
-import funkin.audio.FunkinSound;
 import flixel.tweens.FlxTween;
-import funkin.ui.MusicBeatState;
 import flixel.util.FlxTimer;
+import flixel.util.typeLimit.NextState;
+import funkin.audio.FunkinSound;
+import funkin.graphics.FunkinCamera;
 import funkin.ui.AtlasMenuList.AtlasMenuItem;
-import funkin.ui.freeplay.FreeplayState;
-import funkin.ui.MenuList.MenuTypedList;
 import funkin.ui.MenuList.MenuListItem;
-import funkin.ui.title.TitleState;
-import funkin.ui.story.StoryMenuState;
+import funkin.ui.MenuList.MenuTypedList;
+import funkin.ui.MusicBeatState;
 import funkin.ui.Prompt;
+import funkin.ui.debug.DebugMenuSubState;
+import funkin.ui.freeplay.FreeplayState;
+import funkin.ui.story.StoryMenuState;
+import funkin.ui.title.TitleState;
 import funkin.util.WindowUtil;
 #if FEATURE_DISCORD_RPC
 import funkin.api.discord.DiscordClient;
@@ -82,7 +82,7 @@ class MainMenuState extends MusicBeatState
     magenta.y = bg.y;
     magenta.visible = false;
 
-    // TODO: Why doesn't this line compile I'm going fucking feral
+    // ! Why doesn't this line compile I'm going fucking feral
 
     if (Preferences.flashingLights) add(magenta);
 
@@ -119,7 +119,7 @@ class MainMenuState extends MusicBeatState
     // In order to prevent popup blockers from triggering,
     // we need to open the link as an immediate result of a keypress event,
     // so we can't wait for the flicker animation to complete.
-    var hasPopupBlocker = #if web true #else false #end;
+    var hasPopupBlocker:Bool = #if web true #else false #end;
     createMenuItem('merch', 'mainmenu/merch', selectMerch, hasPopupBlocker);
     #end
 
@@ -132,11 +132,11 @@ class MainMenuState extends MusicBeatState
     });
 
     // Reset position of menu items.
-    var spacing = 160;
-    var top = (FlxG.height - (spacing * (menuItems.length - 1))) / 2;
+    var spacing:Float = 160;
+    var top:Float = (FlxG.height - (spacing * (menuItems.length - 1))) / 2;
     for (i in 0...menuItems.length)
     {
-      var menuItem = menuItems.members[i];
+      var menuItem:AtlasMenuItem = menuItems.members[i];
       menuItem.x = FlxG.width / 2;
       menuItem.y = top + spacing * i;
       menuItem.scrollFactor.x = 0.0;
@@ -160,17 +160,16 @@ class MainMenuState extends MusicBeatState
       }
     });
 
-    // FlxG.camera.setScrollBounds(bg.x, bg.x + bg.width, bg.y, bg.y + bg.height * 1.2);
-
     super.create();
 
     // This has to come AFTER!
-    this.leftWatermarkText.text = Constants.VERSION;
+    this.leftWatermarkText.text = 'Sinco Engine ${Constants.VERSION}';
 
     #if FEATURE_NEWGROUNDS
     if (NG.core?.loggedIn)
     {
-      this.leftWatermarkText.text += ' | Newgrounds: Logged in as ${NG.core?.user?.name}';
+      this.leftWatermarkText.text += '\nNewgrounds: Logged in as ${NG.core?.user?.name}';
+      this.leftWatermarkText.y -= 18;
     }
     #end
   }
@@ -195,7 +194,7 @@ class MainMenuState extends MusicBeatState
 
   function createMenuItem(name:String, atlas:String, callback:Void->Void, fireInstantly:Bool = false):Void
   {
-    var item = new AtlasMenuItem(name, Paths.getSparrowAtlas(atlas), callback);
+    var item:AtlasMenuItem = new AtlasMenuItem(name, Paths.getSparrowAtlas(atlas), callback);
     item.fireInstantly = fireInstantly;
     item.ID = menuItems.length;
 
@@ -220,7 +219,7 @@ class MainMenuState extends MusicBeatState
     super.finishTransIn();
   }
 
-  function onMenuItemChange(selected:MenuListItem)
+  function onMenuItemChange(selected:MenuListItem):Void
   {
     camFollow.setPosition(selected.getGraphicMidpoint().x, selected.getGraphicMidpoint().y);
   }
@@ -238,7 +237,9 @@ class MainMenuState extends MusicBeatState
       .addResponseHandler(response -> {
         if (response.success) WindowUtil.openURL(response.result.data.url)
         else
+        {
           WindowUtil.openURL(Constants.URL_MERCH_FALLBACK);
+        }
       })
       .send();
   }
@@ -262,7 +263,7 @@ class MainMenuState extends MusicBeatState
     menuItems.enabled = false; // disable for exit
     rememberedSelectedIndex = menuItems.selectedIndex;
 
-    var duration = 0.4;
+    var duration:Float = 0.4;
     menuItems.forEach(function(item) {
       if (menuItems.selectedIndex != item.ID)
       {
@@ -293,7 +294,9 @@ class MainMenuState extends MusicBeatState
           {
             if (menuItems.selectedIndex == item.ID && touch.justPressed) menuItems.accept();
             else
+            {
               menuItems.selectItem(item.ID);
+            }
           }
         }
       }
