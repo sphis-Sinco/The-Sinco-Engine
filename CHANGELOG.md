@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2025-04-05
 
 ### Chagned
+- [Changed List Positioning of "Skip Dialogue" in Songs with Text Dialogue](https://github.com/FunkinCrew/Funkin/issues/4552)
 - Changed the pause menu to now refer to the compostor of the song as the composor instead of the artist, this is not in the data files however so it's still artist in there
 
 ### Added
