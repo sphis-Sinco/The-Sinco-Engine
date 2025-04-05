@@ -1,5 +1,7 @@
 package funkin.ui;
 
+import funkin.ui.MenuList.MenuTypedItem;
+
 class TextMenuList extends MenuTypedList<TextMenuItem>
 {
   public function new(navControls:NavControls = Vertical, ?wrapMode)
