@@ -20,12 +20,12 @@ import funkin.api.newgrounds.Leaderboards;
 @:nullSafety
 class Save
 {
-  public static final SAVE_DATA_VERSION:thx.semver.Version = "2.1.0";
-  public static final SAVE_DATA_VERSION_RULE:thx.semver.VersionRule = ">=2.1.0 <2.2.0";
+  public static final SAVE_DATA_VERSION:thx.semver.Version = "1.0.0";
+  public static final SAVE_DATA_VERSION_RULE:thx.semver.VersionRule = ">=1.0.0 <1.1.0";
 
   // We load this version's saves from a new save path, to maintain SOME level of backwards compatibility.
-  static final SAVE_PATH:String = 'FunkinCrew';
-  static final SAVE_NAME:String = 'Funkin';
+  static final SAVE_PATH:String = 'Sinco';
+  static final SAVE_NAME:String = 'SincoEngine';
 
   static final SAVE_PATH_LEGACY:String = 'ninjamuffin99';
   static final SAVE_NAME_LEGACY:String = 'funkin';
@@ -997,7 +997,7 @@ class Save
     {
       case EMPTY:
         trace('[SAVE] Save data in slot ${slot} is empty, checking for legacy save data...');
-        var legacySaveData = fetchLegacySaveData();
+        var legacySaveData = null; // fetchLegacySaveData();
         if (legacySaveData != null)
         {
           trace('[SAVE] Found legacy save data, converting...');
