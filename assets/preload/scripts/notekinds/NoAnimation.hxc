@@ -1,0 +1,30 @@
+import funkin.play.notes.notekind.ScriptedNoteKind;
+import funkin.data.song.NoteParamData;
+import funkin.play.PlayState;
+import funkin.play.character.BaseCharacter;
+import funkin.modding.events.ScriptEvent;
+
+class NoAnimationNote extends ScriptedNoteKind {
+    function new() {
+        super("no-anim", "No Animation");
+    }
+
+    override function onNoteHit(event:HitNoteScriptEvent):Void {
+        if (PlayState.instance == null || PlayState.instance.currentStage == null) return;
+
+        var hitter:BaseCharacter;
+        if (event.note.noteData.getMustHitNote()) hitter = PlayState.instance.currentStage.getBoyfriend();
+        else hitter = PlayState.instance.currentStage.getDad();
+
+        if (hitter != null) {
+            var oldIgnoreList = hitter.ignoreExclusionPref;
+            hitter.ignoreExclusionPref = [];
+            hitter.canPlayOtherAnims = false;
+
+            new FlxTimer().start(0.1, (timer) -> {
+                hitter.ignoreExclusionPref = oldIgnoreList;
+                hitter.canPlayOtherAnims = true;
+            });
+        }
+    }
+}
