@@ -1,17 +1,13 @@
 package funkin.ui.options;
 
-import funkin.ui.Page.PageName;
-import funkin.ui.transition.LoadingState;
-import funkin.ui.debug.latency.LatencyState;
 import flixel.FlxSprite;
-import flixel.FlxSubState;
-import flixel.group.FlxGroup;
-import flixel.util.FlxSignal;
-import funkin.audio.FunkinSound;
-import funkin.ui.mainmenu.MainMenuState;
-import funkin.ui.MusicBeatState;
 import funkin.graphics.shaders.HSVShader;
 import funkin.input.Controls;
+import funkin.ui.MusicBeatState;
+import funkin.ui.Page.PageName;
+import funkin.ui.debug.latency.LatencyState;
+import funkin.ui.mainmenu.MainMenuState;
+import funkin.ui.transition.LoadingState;
 #if FEATURE_NEWGROUNDS
 import funkin.api.newgrounds.NewgroundsClient;
 #end
@@ -29,8 +25,8 @@ class OptionsState extends MusicBeatState
   {
     persistentUpdate = true;
 
-    var menuBG = new FlxSprite().loadGraphic(Paths.image('menuBG'));
-    var hsv = new HSVShader(-0.6, 0.9, 3.6);
+    var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBG'));
+    var hsv:HSVShader = new HSVShader(-0.6, 0.9, 3.6);
     menuBG.shader = hsv;
     menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
     menuBG.updateHitbox();
@@ -70,10 +66,10 @@ class OptionsState extends MusicBeatState
     optionsCodex.switchPage(Options);
   }
 
-  function exitToMainMenu()
+  function exitToMainMenu():Void
   {
     optionsCodex.currentPage.enabled = false;
-    // TODO: Animate this transition?
+    // TODO: #3 Animate this transition?
     FlxG.switchState(() -> new MainMenuState());
   }
 }
@@ -137,15 +133,15 @@ class OptionsMenu extends Page<OptionsMenuPageName>
     createItem("EXIT", exit);
   }
 
-  function createItem(name:String, callback:Void->Void, fireInstantly = false)
+  function createItem(name:String, callback:Void->Void, fireInstantly = false):TextMenuItem
   {
-    var item = items.createItem(0, 100 + items.length * 100, name, BOLD, callback);
+    var item:TextMenuItem = items.createItem(0, 100 + items.length * 100, name, BOLD, callback);
     item.fireInstantly = fireInstantly;
     item.screenCenter(X);
     return item;
   }
 
-  override function set_enabled(value:Bool)
+  override function set_enabled(value:Bool):Bool
   {
     items.enabled = value;
     return super.set_enabled(value);
@@ -192,9 +188,9 @@ class OptionsMenu extends Page<OptionsMenuPageName>
 
 enum abstract OptionsMenuPageName(String) to PageName
 {
-  var Options = "options";
-  var Controls = "controls";
-  var Colors = "colors";
-  var Mods = "mods";
-  var Preferences = "preferences";
+  public var Options = "options";
+  public var Controls = "controls";
+  public var Colors = "colors";
+  public var Mods = "mods";
+  public var Preferences = "preferences";
 }

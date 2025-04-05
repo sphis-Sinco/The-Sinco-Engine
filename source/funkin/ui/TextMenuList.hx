@@ -1,8 +1,5 @@
 package funkin.ui;
 
-import funkin.ui.AtlasText;
-import funkin.ui.MenuList;
-
 class TextMenuList extends MenuTypedList<TextMenuItem>
 {
   public function new(navControls:NavControls = Vertical, ?wrapMode)
@@ -34,7 +31,7 @@ class TextTypedMenuItem<T:AtlasText> extends MenuTypedItem<T>
     super(x, y, label, name, callback);
   }
 
-  override function setItem(name:String, ?callback:Void->Void)
+  override function setItem(name:String, ?callback:Void->Void):Void
   {
     if (label != null)
     {
