@@ -1,12 +1,12 @@
 name: Compiling Help
 description: Report an issue with compiling the game.
-labels: ["type: compilation help", "status: pending triage"]
+labels: ["type: compilation help", "priority: low", "status: pending triage"]
 title: "Compiling Help: "
 body:
   - type: markdown
     attributes:
       value: "# PLEASE READ THE [CONTRIBUTING GUIDE](https://github.com/FunkinCrew/Funkin/blob/main/docs/CONTRIBUTING.md) BEFORE OPENING ISSUES!"
-      
+
   - type: checkboxes
     attributes:
       label: Issue Checklist
@@ -33,11 +33,11 @@ body:
   - type: input
     attributes:
       label: Version
-      description: Which version are you compiling? The game version is in the bottom left corner of the main menu or in the project.hxp file. 
+      description: Which version are you compiling? The game version is in the bottom left corner of the main menu or in the project.hxp file.
       placeholder: ex. 0.6.2
     validations:
       required: true
-  
+
   - type: markdown
     attributes:
       value: "## Describe your compiling issue."

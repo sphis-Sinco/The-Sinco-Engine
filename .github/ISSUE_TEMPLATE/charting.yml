@@ -1,12 +1,12 @@
 name: Charting Issue
 description: Report an issue with the placement of notes in the game.
-labels: ["type: charting issue", "status: pending triage"]
+labels: ["type: charting issue", "priority: low", "status: pending triage"]
 title: "Charting Issue: "
 body:
   - type: markdown
     attributes:
       value: "# PLEASE READ THE [CONTRIBUTING GUIDE](https://github.com/FunkinCrew/Funkin/blob/main/docs/CONTRIBUTING.md) BEFORE OPENING ISSUES!"
-      
+
   - type: checkboxes
     attributes:
       label: Issue Checklist
@@ -45,11 +45,11 @@ body:
   - type: input
     attributes:
       label: Version
-      description: Which version are you playing on? The game version is in the bottom left corner of the main menu. 
+      description: Which version are you playing on? The game version is in the bottom left corner of the main menu.
       placeholder: ex. 0.6.2
     validations:
       required: true
-  
+
   - type: markdown
     attributes:
       value: "## Describe the charting issue(s)."

@@ -1,12 +1,12 @@
 name: Enhancement
 description: Suggest a new feature.
-labels: ["type: enhancement", "status: pending triage"]
+labels: ["type: enhancement", "priority: low", "status: pending triage"]
 title: "Enhancement: "
 body:
   - type: markdown
     attributes:
       value: "# PLEASE READ THE [CONTRIBUTING GUIDE](https://github.com/FunkinCrew/Funkin/blob/main/docs/CONTRIBUTING.md) BEFORE OPENING ISSUES!"
-      
+
   - type: checkboxes
     attributes:
       label: Issue Checklist

@@ -1,6 +1,6 @@
 name: Bug Report
 description: Report a bug or an issue in the game.
-labels: ["type: minor bug", "status: pending triage"]
+labels: ["type: minor bug", "priority: low", "status: pending triage"]
 title: "Bug Report: "
 body:
   - type: markdown
