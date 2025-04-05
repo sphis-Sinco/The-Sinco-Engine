@@ -93,9 +93,7 @@ class PreferencesMenu extends Page<OptionsState.OptionsMenuPageName>
   function addCategory(name:String):Void
   {
     var labelY:Float = (120 * (preferenceItems.length + headers.length)) + 30;
-    #if got_permission
     headers.add(new AtlasText(0, labelY, name, AtlasFont.BOLD)).screenCenter(X);
-    #end
   }
 
   /**
