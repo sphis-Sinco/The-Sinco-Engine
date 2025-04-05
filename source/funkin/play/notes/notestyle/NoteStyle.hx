@@ -870,11 +870,22 @@ class NoteStyle implements IRegistryEntry<NoteStyleData>
 
   public function buildSplashSprite(target:NoteSplash):Void
   {
-    var atlas:Null<FlxAtlasFrames> = buildSplashFrames(false);
+    var atlas:Null<FlxAtlasFrames> = null;
+
+    try
+    {
+      atlas = buildSplashFrames(false);
+    }
+    catch (e)
+    {
+      trace(e);
+      atlas = null;
+    }
 
     if (atlas == null)
     {
-      throw 'Could not load spritesheet for note style: $id';
+      trace('Could not load spritesheet for note style: $id');
+      return;
     }
     target.frames = atlas;
     target.antialiasing = !(_data.assets.noteSplash?.isPixel ?? false);
