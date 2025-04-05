@@ -37,10 +37,6 @@
       "type": "AvoidIdentifier"
     },
     {
-      "props": {},
-      "type": "AvoidStarImport"
-    },
-    {
       "props": {
         "severity": "IGNORE"
       },
@@ -70,14 +66,6 @@
     },
     {
       "props": {
-        "policy": "aligned",
-        "allowSingleline": true,
-        "severity": "INFO"
-      },
-      "type": "ConditionalCompilation"
-    },
-    {
-      "props": {
         "ignoreExtern": true,
         "format": "^[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*$",
         "tokens": ["INLINE", "NOTINLINE"]
@@ -101,20 +89,12 @@
       "type": "CyclomaticComplexity"
     },
     {
-      "props": {},
-      "type": "DefaultComesLast"
-    },
-    {
       "props": {
         "lineStyle": "onestar",
         "startStyle": "twostars",
         "severity": "IGNORE"
       },
       "type": "DocCommentStyle"
-    },
-    {
-      "props": {},
-      "type": "Dynamic"
     },
     {
       "props": {},
@@ -174,29 +154,11 @@
     },
     {
       "props": {
-        "requireParams": true,
-        "fieldType": "BOTH",
-        "requireReturn": true,
-        "ignoreOverride": true,
-        "tokens": ["ABSTRACT_DEF", "CLASS_DEF", "ENUM_DEF", "INTERFACE_DEF"],
-        "modifier": "PUBLIC",
-        "excludeNames": ["new", "toString"]
-      },
-      "type": "FieldDocComment"
-    },
-    {
-      "props": {
         "max": 1000,
         "ignoreEmptyLines": true,
         "severity": "IGNORE"
       },
       "type": "FileLength"
-    },
-    {
-      "props": {
-        "option": "upperCase"
-      },
-      "type": "HexadecimalLiteral"
     },
     {
       "props": {
@@ -212,14 +174,6 @@
         "severity": "IGNORE"
       },
       "type": "Indentation"
-    },
-    {
-      "props": {
-        "character": "space",
-        "severity": "INFO",
-        "ignorePattern": "^$"
-      },
-      "type": "IndentationCharacter"
     },
     {
       "props": {
@@ -257,40 +211,10 @@
     },
     {
       "props": {
-        "ignoreExtern": true,
-        "format": "^[a-z][a-zA-Z0-9]*$",
-        "tokens": []
-      },
-      "type": "LocalVariableName"
-    },
-    {
-      "props": {
         "ignoreNumbers": [-1, 0, 1, 2],
         "severity": "IGNORE"
       },
       "type": "MagicNumber"
-    },
-    {
-      "props": {
-        "format": "^[A-Z][a-zA-Z0-9]*$",
-        "tokens": ["ABSTRACT"]
-      },
-      "type": "MemberName"
-    },
-    {
-      "props": {
-        "format": "^[_a-zA-Z][a-z][a-zA-Z0-9]*$",
-        "tokens": ["ABSTRACT"]
-      },
-      "type": "MemberName"
-    },
-    {
-      "props": {
-        "ignoreExtern": true,
-        "format": "^[_a-z][a-zA-Z0-9]*$",
-        "tokens": ["PUBLIC", "PRIVATE", "CLASS", "TYPEDEF"]
-      },
-      "type": "MemberName"
     },
     {
       "props": {
@@ -451,14 +375,6 @@
     },
     {
       "props": {
-        "ignoreExtern": true,
-        "format": "^(_|[a-z][a-zA-Z0-9]*$)",
-        "tokens": []
-      },
-      "type": "ParameterName"
-    },
-    {
-      "props": {
         "max": 7,
         "ignoreOverriddenMethods": false
       },
@@ -578,12 +494,6 @@
     {
       "props": {},
       "type": "TrailingWhitespace"
-    },
-    {
-      "props": {
-        "tokens": ["CLASS_DEF", "ENUM_DEF", "INTERFACE_DEF", "TYPEDEF_DEF"]
-      },
-      "type": "TypeDocComment"
     },
     {
       "props": {
