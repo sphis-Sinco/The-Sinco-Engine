@@ -164,7 +164,7 @@ class MainMenuState extends MusicBeatState
 
     // This has to come AFTER!
     this.leftWatermarkText.text = 'Sinco Engine ${Constants.VERSION}';
-    trace(this.leftWaterMarkText.text);
+    trace(this.leftWatermarkText.text);
   }
 
   function playMenuMusic():Void
