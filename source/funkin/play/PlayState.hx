@@ -2152,6 +2152,15 @@ class PlayState extends MusicBeatSubState
   }
 
   /**
+     * This should allow modules to update the score text
+     * @param newtext the new score text
+     */
+  public static function dynamicScoreTextUpdate(newtext:String):Void
+  {
+    scoreText.text = newtext;
+  }
+
+  /**
      * Updates the position and contents of the score display.
      */
   function updateScoreText():Void
@@ -2162,7 +2171,6 @@ class PlayState extends MusicBeatSubState
     final scoreValue:String = 'Score: ${FlxStringUtil.formatMoney(songScore, false, commaSeparated)}';
     final missValue:String = '|| Misses: ${FlxStringUtil.formatMoney(songMisses, false, commaSeparated)}';
 
-    // TODO: #2 Add functionality for modules to update the score text.
     if (isBotPlayMode)
     {
       scoreText.text = 'Bot Play Enabled';
