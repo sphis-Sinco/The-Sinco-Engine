@@ -63,3 +63,5 @@
 - [ ] - Add Events
 
 - [ ] - Add lua compatability (because it's the only damm way we can get people not to complain)
+
+- [ ] - Include properties for window X n' Y Size and bordar
