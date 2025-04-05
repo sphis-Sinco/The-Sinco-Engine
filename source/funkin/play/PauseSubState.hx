@@ -1,10 +1,8 @@
 package funkin.play;
 
-import flixel.FlxState;
-import funkin.ui.story.StoryMenuState;
-import funkin.data.freeplay.player.PlayerRegistry;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxG;
+import flixel.FlxState;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
@@ -12,12 +10,14 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import funkin.audio.FunkinSound;
+import funkin.data.freeplay.player.PlayerRegistry;
 import funkin.data.song.SongRegistry;
-import funkin.ui.freeplay.FreeplayState;
 import funkin.graphics.FunkinSprite;
 import funkin.play.cutscene.VideoCutscene;
 import funkin.ui.AtlasText;
 import funkin.ui.MusicBeatSubState;
+import funkin.ui.freeplay.FreeplayState;
+import funkin.ui.story.StoryMenuState;
 
 /**
  * Parameters for initializing the PauseSubState.
@@ -170,7 +170,7 @@ class PauseSubState extends MusicBeatSubState
    * A text object which displays the current song's artist.
    * Fades to the charter after a period before fading back.
    */
-  var metadataArtist:FlxText;
+  var metadataComposor:FlxText;
 
   /**
    * The actual text objects for the menu entries.
@@ -292,16 +292,16 @@ class PauseSubState extends MusicBeatSubState
     metadataSong.scrollFactor.set(0, 0);
     metadata.add(metadataSong);
 
-    metadataArtist = new FlxText(20, metadataSong.y + 32, FlxG.width - 40, 'Artist: ${Constants.DEFAULT_ARTIST}');
-    metadataArtist.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.RIGHT);
+    metadataComposor = new FlxText(20, metadataSong.y + 32, FlxG.width - 40, 'Composor: ${Constants.DEFAULT_ARTIST}');
+    metadataComposor.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.RIGHT);
     if (PlayState.instance?.currentChart != null)
     {
-      metadataArtist.text = 'Artist: ${PlayState.instance.currentChart.songArtist}';
+      metadataComposor.text = 'Composor: ${PlayState.instance.currentChart.songArtist}';
     }
-    metadataArtist.scrollFactor.set(0, 0);
-    metadata.add(metadataArtist);
+    metadataComposor.scrollFactor.set(0, 0);
+    metadata.add(metadataComposor);
 
-    var metadataDifficulty:FlxText = new FlxText(20, metadataArtist.y + 32, FlxG.width - 40, 'Difficulty: ');
+    var metadataDifficulty:FlxText = new FlxText(20, metadataComposor.y + 32, FlxG.width - 40, 'Difficulty: ');
     metadataDifficulty.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.RIGHT);
     if (PlayState.instance?.currentDifficulty != null)
     {
@@ -328,21 +328,21 @@ class PauseSubState extends MusicBeatSubState
 
   function startCharterTimer():Void
   {
-    charterFadeTween = FlxTween.tween(metadataArtist, {alpha: 0.0}, CHARTER_FADE_DURATION,
+    charterFadeTween = FlxTween.tween(metadataComposor, {alpha: 0.0}, CHARTER_FADE_DURATION,
       {
         startDelay: CHARTER_FADE_DELAY,
         ease: FlxEase.quartOut,
         onComplete: (_) -> {
           if (PlayState.instance?.currentChart != null)
           {
-            metadataArtist.text = 'Charter: ${PlayState.instance.currentChart.charter ?? 'Unknown'}';
+            metadataComposor.text = 'Charter: ${PlayState.instance.currentChart.charter ?? 'Unknown'}';
           }
           else
           {
-            metadataArtist.text = 'Charter: ${Constants.DEFAULT_CHARTER}';
+            metadataComposor.text = 'Charter: ${Constants.DEFAULT_CHARTER}';
           }
 
-          FlxTween.tween(metadataArtist, {alpha: 1.0}, CHARTER_FADE_DURATION,
+          FlxTween.tween(metadataComposor, {alpha: 1.0}, CHARTER_FADE_DURATION,
             {
               ease: FlxEase.quartOut,
               onComplete: (_) -> {
@@ -355,21 +355,21 @@ class PauseSubState extends MusicBeatSubState
 
   function startArtistTimer():Void
   {
-    charterFadeTween = FlxTween.tween(metadataArtist, {alpha: 0.0}, CHARTER_FADE_DURATION,
+    charterFadeTween = FlxTween.tween(metadataComposor, {alpha: 0.0}, CHARTER_FADE_DURATION,
       {
         startDelay: CHARTER_FADE_DELAY,
         ease: FlxEase.quartOut,
         onComplete: (_) -> {
           if (PlayState.instance?.currentChart != null)
           {
-            metadataArtist.text = 'Artist: ${PlayState.instance.currentChart.songArtist}';
+            metadataComposor.text = 'Artist: ${PlayState.instance.currentChart.songArtist}';
           }
           else
           {
-            metadataArtist.text = 'Artist: ${Constants.DEFAULT_ARTIST}';
+            metadataComposor.text = 'Artist: ${Constants.DEFAULT_ARTIST}';
           }
 
-          FlxTween.tween(metadataArtist, {alpha: 1.0}, CHARTER_FADE_DURATION,
+          FlxTween.tween(metadataComposor, {alpha: 1.0}, CHARTER_FADE_DURATION,
             {
               ease: FlxEase.quartOut,
               onComplete: (_) -> {
