@@ -1,10 +1,10 @@
 package funkin.play;
 
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.transition.Transition;
 import flixel.FlxCamera;
 import flixel.FlxObject;
 import flixel.FlxSubState;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.transition.Transition;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
@@ -13,6 +13,8 @@ import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
+import funkin.Highscore.Tallies;
+import funkin.api.newgrounds.Events;
 import funkin.audio.FunkinSound;
 import funkin.audio.VoicesGroup;
 import funkin.data.dialogue.conversation.ConversationRegistry;
@@ -25,33 +27,31 @@ import funkin.data.song.SongRegistry;
 import funkin.data.stage.StageRegistry;
 import funkin.graphics.FunkinCamera;
 import funkin.graphics.FunkinSprite;
-import funkin.Highscore.Tallies;
 import funkin.input.PreciseInputManager;
 import funkin.modding.events.ScriptEvent;
-import funkin.api.newgrounds.Events;
 import funkin.modding.events.ScriptEventDispatcher;
 import funkin.play.character.BaseCharacter;
 import funkin.play.character.CharacterData.CharacterDataParser;
 import funkin.play.components.ComboMilestone;
 import funkin.play.components.HealthIcon;
 import funkin.play.components.PopUpStuff;
-import funkin.play.cutscene.dialogue.Conversation;
 import funkin.play.cutscene.VanillaCutscenes;
 import funkin.play.cutscene.VideoCutscene;
+import funkin.play.cutscene.dialogue.Conversation;
 import funkin.play.notes.NoteDirection;
-import funkin.play.notes.notekind.NoteKindManager;
 import funkin.play.notes.NoteSprite;
-import funkin.play.notes.notestyle.NoteStyle;
 import funkin.play.notes.Strumline;
 import funkin.play.notes.SustainTrail;
+import funkin.play.notes.notekind.NoteKindManager;
+import funkin.play.notes.notestyle.NoteStyle;
 import funkin.play.scoring.Scoring;
 import funkin.play.song.Song;
 import funkin.play.stage.Stage;
 import funkin.save.Save;
+import funkin.ui.MusicBeatSubState;
 import funkin.ui.debug.charting.ChartEditorState;
 import funkin.ui.debug.stage.StageOffsetSubState;
 import funkin.ui.mainmenu.MainMenuState;
-import funkin.ui.MusicBeatSubState;
 import funkin.ui.transition.LoadingState;
 import funkin.util.SerializerUtil;
 import haxe.Int64;
@@ -59,8 +59,8 @@ import haxe.Int64;
 import funkin.api.discord.DiscordClient;
 #end
 #if FEATURE_NEWGROUNDS
-import funkin.api.newgrounds.Medals;
 import funkin.api.newgrounds.Leaderboards;
+import funkin.api.newgrounds.Medals;
 #end
 
 /**
@@ -202,6 +202,12 @@ class PlayState extends MusicBeatSubState
    * TODO: Move this to its own class.
    */
   public var songScore:Int = 0;
+
+  /**
+   * The player's current amount of misses.
+   * TODO: Move this to its own class.
+   */
+  public var songMisses:Int = 0;
 
   /**
    * Start at this point in the song once the countdown is done.
@@ -2150,16 +2156,20 @@ class PlayState extends MusicBeatSubState
      */
   function updateScoreText():Void
   {
-    // TODO: Add functionality for modules to update the score text.
+    // TODO: #1 Add an option for this maybe?
+    final commaSeparated:Bool = true;
+
+    final scoreValue:String = 'Score: ${FlxStringUtil.formatMoney(songScore, false, commaSeparated)}';
+    final missValue:String = '|| Misses: ${FlxStringUtil.formatMoney(songMisses, false, commaSeparated)}';
+
+    // TODO: #2 Add functionality for modules to update the score text.
     if (isBotPlayMode)
     {
       scoreText.text = 'Bot Play Enabled';
     }
     else
     {
-      // TODO: Add an option for this maybe?
-      var commaSeparated:Bool = true;
-      scoreText.text = 'Score: ${FlxStringUtil.formatMoney(songScore, false, commaSeparated)}';
+      scoreText.text = '${scoreValue}${missValue}';
     }
   }
 
@@ -2309,9 +2319,9 @@ class PlayState extends MusicBeatSubState
         continue;
       }
 
-      var hitWindowStart = note.strumTime - Constants.HIT_WINDOW_MS;
-      var hitWindowCenter = note.strumTime;
-      var hitWindowEnd = note.strumTime + Constants.HIT_WINDOW_MS;
+      var hitWindowStart:Float = note.strumTime - Constants.HIT_WINDOW_MS;
+      var hitWindowCenter:Float = note.strumTime;
+      var hitWindowEnd:Float = note.strumTime + Constants.HIT_WINDOW_MS;
 
       if (Conductor.instance.songPosition > hitWindowEnd)
       {
@@ -2597,43 +2607,8 @@ class PlayState extends MusicBeatSubState
   {
     // If we are here, we already CALLED the onNoteMiss script hook!
 
-    if (!isPracticeMode)
-    {
-      // messy copy paste rn lol
-      var pressArray:Array<Bool> = [
-        controls.NOTE_LEFT_P,
-        controls.NOTE_DOWN_P,
-        controls.NOTE_UP_P,
-        controls.NOTE_RIGHT_P
-      ];
+    inputSplitterCode();
 
-      var indices:Array<Int> = [];
-      for (i in 0...pressArray.length)
-      {
-        if (pressArray[i]) indices.push(i);
-      }
-      if (indices.length > 0)
-      {
-        for (i in 0...indices.length)
-        {
-          inputSpitter.push(
-            {
-              t: Std.int(Conductor.instance.songPosition),
-              d: indices[i],
-              l: 20
-            });
-        }
-      }
-      else
-      {
-        inputSpitter.push(
-          {
-            t: Std.int(Conductor.instance.songPosition),
-            d: -1,
-            l: 20
-          });
-      }
-    }
     vocals.playerVolume = 0;
 
     applyScore(-10, 'miss', healthChange, true);
@@ -2771,7 +2746,7 @@ class PlayState extends MusicBeatSubState
   /**
      * Handles applying health, score, and ratings.
      */
-  function applyScore(score:Int, daRating:String, healthChange:Float, isComboBreak:Bool)
+  function applyScore(score:Int, daRating:String, healthChange:Float, isComboBreak:Bool):Void
   {
     switch (daRating)
     {
@@ -2816,47 +2791,55 @@ class PlayState extends MusicBeatSubState
     }
     if (combo == null) combo = Highscore.tallies.combo;
 
-    if (!isPracticeMode)
-    {
-      // TODO: Input splitter uses old input system, make it pull from the precise input queue directly.
-      var pressArray:Array<Bool> = [
-        controls.NOTE_LEFT_P,
-        controls.NOTE_DOWN_P,
-        controls.NOTE_UP_P,
-        controls.NOTE_RIGHT_P
-      ];
+    inputSplitterCode();
 
-      var indices:Array<Int> = [];
-      for (i in 0...pressArray.length)
-      {
-        if (pressArray[i]) indices.push(i);
-      }
-      if (indices.length > 0)
-      {
-        for (i in 0...indices.length)
-        {
-          inputSpitter.push(
-            {
-              t: Std.int(Conductor.instance.songPosition),
-              d: indices[i],
-              l: 20
-            });
-        }
-      }
-      else
-      {
-        inputSpitter.push(
-          {
-            t: Std.int(Conductor.instance.songPosition),
-            d: -1,
-            l: 20
-          });
-      }
-    }
     comboPopUps.displayRating(daRating);
     if (combo >= 10) comboPopUps.displayCombo(combo);
 
     vocals.playerVolume = 1;
+  }
+
+  function inputSplitterCode():Void
+  {
+    if (isPracticeMode)
+    {
+      return;
+    }
+
+    // TODO: Input splitter uses old input system, make it pull from the precise input queue directly.
+    var pressArray:Array<Bool> = [
+      controls.NOTE_LEFT_P,
+      controls.NOTE_DOWN_P,
+      controls.NOTE_UP_P,
+      controls.NOTE_RIGHT_P
+    ];
+
+    var indices:Array<Int> = [];
+    for (i in 0...pressArray.length)
+    {
+      if (pressArray[i]) indices.push(i);
+    }
+    if (indices.length > 0)
+    {
+      for (i in 0...indices.length)
+      {
+        inputSpitter.push(
+          {
+            t: Std.int(Conductor.instance.songPosition),
+            d: indices[i],
+            l: 20
+          });
+      }
+    }
+    else
+    {
+      inputSpitter.push(
+        {
+          t: Std.int(Conductor.instance.songPosition),
+          d: -1,
+          l: 20
+        });
+    }
   }
 
   /**
