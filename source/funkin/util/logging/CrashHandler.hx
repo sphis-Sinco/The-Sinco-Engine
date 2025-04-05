@@ -119,7 +119,7 @@ class CrashHandler
   }
   #end
 
-  final spacing:String = '=====================';
+  static final spacing:String = '=====================';
 
   static function buildCrashReport(message:String):String
   {
