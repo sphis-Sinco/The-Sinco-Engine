@@ -42,6 +42,12 @@
 - [ ] - Toggleable note/hold splashes
 
 # Sinco engine team
+- [ ] - Include properties for window X n' Y Size and border
+
+- [ ] - Lua
+
+- [ ] - Add Events
+
 - [ ] - Different Sprite Sheet Types for Character Select
 
 - [ ] - Experimental Options
@@ -59,9 +65,3 @@
 - [ ] - Add character creator
 
 - [ ] - Add mod menu
-
-- [ ] - Add Events
-
-- [ ] - Add lua compatability (because it's the only damm way we can get people not to complain)
-
-- [ ] - Include properties for window X n' Y Size and bordar
