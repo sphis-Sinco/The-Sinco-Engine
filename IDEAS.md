@@ -59,3 +59,7 @@
 - [ ] - Add character creator
 
 - [ ] - Add mod menu
+
+- [ ] - Add Events
+
+- [ ] - Add 3rd varable (I have no idea if we're using the psych source still)
