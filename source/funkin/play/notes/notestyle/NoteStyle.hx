@@ -1007,10 +1007,20 @@ class NoteStyle implements IRegistryEntry<NoteStyleData>
   {
     // NoteHoldCover has "glow" and "sparks". Right now it only implements "glow"
     // but "sparks" I believe is meant to be used for the ending of the hold note
-    var glowAtlas:Null<FlxFramesCollection> = buildHoldCoverFrames(false);
+    var glowAtlas:Null<FlxFramesCollection> = null;
+
+    try
+    {
+      glowAtlas = buildHoldCoverFrames(false);
+    }
+    catch (e)
+    {
+      glowAtlas = null;
+    }
     if (glowAtlas == null)
     {
-      throw 'Could not load spritesheet for note style: $id';
+      trace('Could not load spritesheet for note style: $id');
+      return;
     }
     target.glow.frames = glowAtlas;
 
