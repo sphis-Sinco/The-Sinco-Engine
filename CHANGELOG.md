@@ -8,9 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
-- Unclosed conditional compilation block ([48b06b2](https://github.com/Sphis-Sinco/The-Sinco-Engine/commit/48b06b2fab400b5539fb19dc33170cd915b63a9e)) - by @sphis-Sinco
-
 ## New Contributors
 * @sphis-Sinco made their first contribution
 
