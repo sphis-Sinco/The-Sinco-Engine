@@ -42,6 +42,8 @@
 - [ ] - Toggleable note/hold splashes
 
 # Sinco engine team
+- [ ] - add some opponent note splash mode in the options menu
+
 - [ ] - Different Sprite Sheet Types for Character Select
 
 - [ ] - Experimental Options

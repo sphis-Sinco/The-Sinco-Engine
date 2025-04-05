@@ -516,19 +516,22 @@ class BaseCharacter extends Bopper
     // If another script cancelled the event, don't do anything.
     if (event.eventCanceled) return;
 
-    if (event.note.noteData.getMustHitNote() && characterType == BF)
+    if (event.note.noteData.kind == 'no-anim')
+    {
+      return;
+    }
+    final playerCondition:Bool = (event.note.noteData.getMustHitNote() && characterType == BF);
+    final opponentCondition:Bool = (!event.note.noteData.getMustHitNote() && characterType == DAD);
+
+    final motivatorCondition:Bool = (characterType == GF && event.note.noteData.getMustHitNote());
+
+    if (playerCondition || opponentCondition)
     {
       // If the note is from the same strumline, play the sing animation.
       this.playSingAnimation(event.note.noteData.getDirection(), false);
       holdTimer = 0;
     }
-    else if (!event.note.noteData.getMustHitNote() && characterType == DAD)
-    {
-      // If the note is from the same strumline, play the sing animation.
-      this.playSingAnimation(event.note.noteData.getDirection(), false);
-      holdTimer = 0;
-    }
-    else if (characterType == GF && event.note.noteData.getMustHitNote())
+    else if (motivatorCondition)
     {
       switch (event.judgement)
       {

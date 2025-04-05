@@ -5,9 +5,9 @@ module.exports = {
   // Line width before Prettier tries to add new lines.
   printWidth: 80,
 
-	// Indent with 2 spaces.
-	tabs: false,
-  useTabs: false,
+	// Indent with 2 tabs.
+	tabs: true,
+  useTabs: true,
   tabWidth: 2,
 
   // Use double quotes.
